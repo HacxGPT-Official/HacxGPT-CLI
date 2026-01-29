@@ -58,7 +58,7 @@ class Config:
                 # Critical Fallback
                 cls.PROVIDERS = {
                     "hacxgpt": {
-                        "base_url": "https://hacxgpt.pages.dev/v1",
+                        "base_url": "https://api.hacxgpt.com/v1",
                         "key_var": "HACXGPT_API_KEY",
                         "models": [{"name": "hacxgpt-lightning-flash", "alias": "Lightning Flash"}],
                         "default_model": "hacxgpt-lightning-flash"
@@ -122,3 +122,4 @@ class Config:
         saved_model = os.getenv("HACX_ACTIVE_MODEL")
         if saved_model:
             Config.ACTIVE_MODEL = saved_model
+

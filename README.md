@@ -435,11 +435,12 @@ This project stands on the shoulders of giants. We thank:
 
 **Built with ❤️ by the HacxGPT team**
 
-[⭐ Star this repo](https://github.com/HacxGPT-Official/HacxGPT-CLI) • [🐛 Report bug](https://github.com/HacxGPT-Official/HacxGPT-CLI/issues) • [💡 Request feature](https://github.com/HacxGPT-Official/HacxGPT-CLI/discussions)
+[⭐ Star this repo](https://github.com/HacxGPT-Official/HacxGPT-CLI) • [🐛 Report bug](https://github.com/HacxGPT-Official/HacxGPT-CLI/issues) • [💡 Request feature](https://github.com/HacxGPT-Official/HacxGPT-CLI/issues)
 
 **Want production-grade uncensored AI? Visit [hacxgpt.com](https://hacxgpt.com)**
 
 </div>
 
 ***
+
 

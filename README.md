@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![HacxGPT logo](https://github.com/HacxGPT-Official/HacxGPT-CLI/blob/main/img/HacxGPT.png)
+![HacxGPT logo](https://github.com/HacxGPT-Official/HacxGPT-CLI/blob/main/img/HacxGPT.jpg)
 
 # HacxGPT-CLI
 
@@ -442,3 +442,4 @@ This project stands on the shoulders of giants. We thank:
 </div>
 
 ***
+

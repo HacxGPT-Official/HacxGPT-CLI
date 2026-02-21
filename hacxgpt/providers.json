@@ -1,6 +1,6 @@
 {
     "hacxgpt": {
-        "base_url": "https://hacxgpt.pages.dev/v1",
+        "base_url": "https://api.hacxgpt.com/v1",
         "key_var": "HACXGPT_API_KEY",
         "models": [
             {
@@ -56,4 +56,5 @@
         ],
         "default_model": "xiaomi/mimo-v2-flash:free"
     }
+
 }

@@ -1,5 +1,5 @@
 {
     "version": "2.1.0",
-    "release_notes": "API updates, UI improvements, and new update system.",
+    "release_notes": "Migration to custom local API engine (removed litellm/openai dependencies), UI overhaul, and auto-update system.",
     "min_python_version": "3.8"
 }

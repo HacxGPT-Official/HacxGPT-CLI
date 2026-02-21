@@ -36,11 +36,11 @@
 
 ## 🚀 NEW IN V2.1.0
 
-- **LiteLLM Integration:** Now powered by `litellm` for superior model compatibility and OpenAI-compatible mode across all providers.
+- **Custom Local API Engine:** Replaced `litellm` and `openai` with a standalone, high-performance `api.py` engine. ZERO external API SDK dependencies for maximum speed and control.
 - **Enhanced Aesthetics:** Modernized UI with refined colors, improved main menu, and a cleaner streaming experience.
 - **Reasoning Support:** Optimized rendering for `<think>` tags (CoT) with a dedicated reasoning panel.
 - **Auto-Update System:** Built-in update engine! Use `/update` in chat or run the new update scripts.
-- **Latest Dependencies:** All libraries updated to their latest versions for maximum performance and security.
+- **Dependency Cleanup:** Completely removed `openai` and `litellm`. The project is now lighter and easier to maintain.
 
 ---
 
@@ -56,12 +56,10 @@ Here is a glimpse of HacxGPT-CLI in action:
 
 - [About The Project](#-about-the-project)
   - [What is HacxGPT-CLI?](#-what-is-hacxgpt-cli)
-  - [HacxGPT Production Models](#-hacxgpt-production-models)
 - [Features](#-features)
 - [Supported Providers & Models](#-supported-providers--models)
 - [Getting Started](#-getting-started)
-  - [Prerequisites: API Key](#-prerequisites-api-key)
-  - [Installation](#-installation)
+- [Updating HacxGPT](#-updating-hacxgpt)
 - [Configuration](#-configuration)
 - [Usage](#-usage)
 - [Roadmap](#-roadmap)
@@ -77,13 +75,11 @@ HacxGPT-CLI is designed to provide powerful, unrestricted, and seamless AI-drive
 
 ### 🔍 What is HacxGPT-CLI?
 
-This repository is an **open-source command-line interface** that makes powerful AI models accessible without heavy censorship. It provides a clean, professional way to interact with multiple AI providers and unlock their full potential through advanced prompting techniques.
-
-> [!IMPORTANT]
-> **How It Works:** HacxGPT-CLI uses advanced system prompt engineering to reduce censorship and restrictions on AI models. By combining carefully crafted prompts with access to multiple providers, this tool helps you get more unrestricted, technically accurate responses from open-source models.
+This repository is an **open-source command-line interface** that makes powerful AI models accessible without heavy censorship. It provides a clean, professional way to interact with multiple AI providers through a **custom-built local API engine**.
 
 **What HacxGPT-CLI Provides:**
 - ✅ **Open-source CLI tool** for interacting with AI models
+- ✅ **Custom Local API Engine** - Zero dependency on third-party SDKs like `openai` or `litellm`
 - ✅ **Access to multiple providers** - OpenRouter, Groq, and HacxGPT API
 - ✅ **Advanced jailbreak prompts** that reduce model censorship
 - ✅ **Multi-provider support** with easy switching between services
@@ -210,9 +206,12 @@ To use this framework, you **must** obtain an API key from at least one supporte
 We provide simple, one-command installation scripts for your convenience.
 
 #### **Windows**
-1. Download the [`install.bat`](https://github.com/HacxGPT-Official/HacxGPT-CLI/blob/main/scripts/install.bat) script from this repository
-2. Double-click the file to run it
-3. It will automatically clone the repository and install all dependencies
+1. Open PowerShell as Administrator.
+2. Run the following command:
+   ```powershell
+   powershell -ExecutionPolicy ByPass -c "irm https://raw.githubusercontent.com/HacxGPT-Official/HacxGPT-CLI/main/scripts/install.ps1 | iex"
+   ```
+   This will download the installer, set up a virtual environment, and install all dependencies automatically.
 
 #### **Linux / macOS / Termux**
 1. Open your terminal
@@ -259,8 +258,8 @@ Keep your system synchronized with the latest features and patches.
 Simply type `/update` while in a chat session. The tool will check for updates, pull the latest code, and restart automatically.
 
 #### **Option B: Using Scripts**
-- **Windows (PowerShell):** Run `scripts/update.ps1` 
-- **Linux/macOS:** Run `python3 scripts/update.py`
+- **All Platforms:** Run `python scripts/update.py` (or `python3` on Linux/macOS)
+  - This script automatically downloads the latest archive from GitHub, synchronizes your local files, and updates dependencies.
 
 #### **Option C: Main Menu**
 Select option **[4] System Update** from the main menu.

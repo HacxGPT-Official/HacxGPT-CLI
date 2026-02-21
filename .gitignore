@@ -6,3 +6,5 @@ hacxgpt_code_output/
 build/
 dist/
 *.egg-info/
+
+git commit -m "feat: v2.1.0 - migration to local API client, modern TUI & auto-update system" -m "- Switched to standalone api.py (removed openai/litellm deps), Enhanced TUI with reasoning panel and modern aesthetics, Added built-in update engine with /update command and scripts"

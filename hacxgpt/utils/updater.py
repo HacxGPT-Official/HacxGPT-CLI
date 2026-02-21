@@ -37,22 +37,20 @@ class Updater:
 
     @staticmethod
     def update():
-        """Performs a git pull and re-installs dependencies."""
+        """Executes the external update script."""
         print("[~] Initiating System Update...")
         
-        # 1. Check if it's a git repo
-        if not os.path.exists(".git"):
-            return False, "Not a git repository. Manual update required."
-
         try:
-            # 2. Pull latest changes
-            print("[~] Fetching latest code from uplink...")
-            subprocess.check_call(["git", "pull", "origin", "main"])
+            # We execute scripts/update.py using the current python interpreter
+            update_script = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "scripts", "update.py")
+            if not os.path.exists(update_script):
+                # Fallback check relative to CWD
+                update_script = os.path.join(os.getcwd(), "scripts", "update.py")
             
-            # 3. Update dependencies
-            print("[~] Synchronizing dependencies...")
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
-            
+            if not os.path.exists(update_script):
+                return False, "Update script not found in scripts/update.py."
+
+            subprocess.check_call([sys.executable, update_script])
             return True, "Update successful. Please restart HacxGPT."
         except subprocess.CalledProcessError as e:
             return False, f"Update failed during execution: {e}"

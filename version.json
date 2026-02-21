@@ -1,0 +1,5 @@
+{
+    "version": "2.1.0",
+    "release_notes": "LiteLLM integration, UI improvements, and new update system.",
+    "min_python_version": "3.8"
+}

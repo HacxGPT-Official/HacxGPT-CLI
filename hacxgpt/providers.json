@@ -4,8 +4,8 @@
         "key_var": "HACXGPT_API_KEY",
         "models": [
             {
-                "name": "hacxgpt-lightning-flash",
-                "alias": "Lightning Flash (Default)"
+                "name": "hacxgpt-lightning",
+                "alias": "Lightning (Default)"
             }
         ],
         "default_model": "hacxgpt-lightning-flash"

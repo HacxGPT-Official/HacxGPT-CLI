@@ -40,30 +40,29 @@ class UI:
     def main_menu(self):
         table = Table(show_header=False, box=None, padding=(0, 2))
         table.add_column("Icon", style="bold yellow", justify="right")
-        table.add_column("Option", style="bold white")
+        table.add_column("Option", style="bold bright_white")
         
-        table.add_row("[1]", "Initialize Uplink (Start Chat)")
-        table.add_row("[2]", "Configure Security Keys (API Setup)")
-        table.add_row("[3]", "System Manifesto (About)")
-        table.add_row("[4]", "Terminate Session (Exit)")
+        table.add_row("[1]", "Initialize Uplink [dim](Start Chatting)[/]")
+        table.add_row("[2]", "Security Keys [dim](Configure API)[/]")
+        table.add_row("[3]", "System Manifesto [dim](About HacxGPT)[/]")
+        table.add_row("[4]", "System Update [dim](Check latest version)[/]")
+        table.add_row("[5]", "Terminate Session [dim](Exit)[/]")
         
         panel = Panel(
             Align.center(table),
-            title="[bold cyan]MAIN MENU[/bold cyan]",
+            title="[bold cyan]⚡ SYSTEM INTERFACE ⚡[/bold cyan]",
             border_style="bright_blue",
-            padding=(1, 5)
+            padding=(1, 5),
+            subtitle="[dim]Select an option to proceed[/]"
         )
         self.console.print(panel)
 
     def show_msg(self, title: str, content: str, color: str = "white"):
-        self.console.print(Panel(content, title=f"[bold]{title}[/]", border_style=color))
+        self.console.print(Panel(content, title=f"[bold]{title}[/]", border_style=color, padding=(1, 2)))
 
     def get_input(self, label: str = "COMMAND", multiline: bool = False) -> str:
         """
         Get input using prompt_toolkit.
-        If multiline is True, behavior is swapped:
-        - Enter: Submit
-        - Shift+Enter: New line
         """
         from prompt_toolkit.key_binding import KeyBindings
         
@@ -79,15 +78,15 @@ class UI:
                 event.current_buffer.insert_text('\n')
         
         try:
-            # We construct the prompt text manually for visual style
-            self.console.print(f"[bold yellow]┌──({label})-[~][/]")
+            # Modern prompt style
+            self.console.print(f"[bold bright_yellow]◆ {label}[/]")
             
             user_input = self.session.prompt(
-                "└─> ",
+                [('class:prompt', ' ╰─> ')],
                 style=self.pt_style,
                 multiline=multiline,
                 key_bindings=kb if multiline else None,
-                prompt_continuation=lambda width, line_number, is_soft_wrap: '.' * (width - 1) + ' '
+                prompt_continuation=lambda width, line_number, is_soft_wrap: ' ' * (width - 1) + '│'
             )
             return user_input
         except KeyboardInterrupt:
@@ -97,8 +96,7 @@ class UI:
 
     def stream_markdown(self, title: str, content_generator):
         """
-        Renders Markdown content in real-time as it streams, 
-        with specific support for <think> reasoning tags.
+        Renders Markdown content in real-time as it streams.
         """
         from rich.console import Group
         
@@ -107,12 +105,13 @@ class UI:
         display_text = ""
         is_thinking = False
         
-        self.console.print(Rule(f"[bold cyan]{title}[/bold cyan]", style="cyan"))
+        # Cleaner header
+        self.console.print(Rule(f"[bold bright_cyan]{title}[/bold bright_cyan]", style="bright_blue"))
         
         with Live(
-            Spinner("dots", text="Establishing neural link...", style="cyan"),
+            Spinner("dots", text="Contacting neural network...", style="bright_cyan"),
             console=self.console,
-            refresh_per_second=12,
+            refresh_per_second=15,
             transient=True
         ) as live:
             
@@ -124,49 +123,43 @@ class UI:
                 raw_text = full_response
                 if "<think>" in raw_text:
                     if "</think>" in raw_text:
-                        # Thinking completed
                         parts = raw_text.split("</think>")
                         thinking_text = parts[0].replace("<think>", "").strip()
                         display_text = parts[1].strip()
                         is_thinking = False
                     else:
-                        # Still thinking
                         thinking_text = raw_text.replace("<think>", "").strip()
                         display_text = ""
                         is_thinking = True
                 else:
-                    # Normal response
                     thinking_text = ""
                     display_text = raw_text.strip()
                     is_thinking = False
 
-                # Prepare the UI group
                 ui_elements = []
                 
                 if thinking_text:
                     ui_elements.append(Panel(
                         thinking_text, 
-                        title="[dim]🧠 Model Reasoning[/]", 
-                        border_style="dim cyan", 
-                        subtitle="[dim]Thinking...[/]" if is_thinking else "[dim]Thought Process Captured[/]",
-                        width=self.console.width - 4
+                        title="[italic dim bright_cyan]Thought Process[/]", 
+                        border_style="dim blue", 
+                        subtitle="[dim]Analyzing...[/]" if is_thinking else "[dim]Finalizing thought[/]",
+                        padding=(0, 1)
                     ))
                 
                 if display_text:
-                    # Remove banners from streaming view if needed
                     clean_display = display_text.replace("[HacxGPT]:", "").replace("[CODE]:", "").strip()
                     ui_elements.append(Markdown(clean_display, code_theme=Config.CODE_THEME))
                 
                 if not ui_elements:
-                    live.update(Spinner("dots", text="HacxGPT is processing...", style="cyan"))
+                    live.update(Spinner("dots", text="Generating response...", style="bright_cyan"))
                 else:
                     live.update(Group(*ui_elements))
             
             if not full_response:
-                self.console.print("[bold red]✗ Fatal Error: The neural link remained silent (No response).[/]")
+                self.console.print("[bold red]✗ Connection Lost: The neural link went dark.[/]")
             
-        # Final clean render (static)
-        # 1. Show the final thinking process if it existed
+        # Final render
         final_thinking = ""
         final_response = full_response
         
@@ -177,17 +170,16 @@ class UI:
             
             self.console.print(Panel(
                 final_thinking, 
-                title="[bold cyan]🧠 THOUGHT PROCESS[/]", 
-                border_style="cyan", 
+                title="[bold bright_cyan]🧠 THOUGHT PROCESS[/]", 
+                border_style="bright_blue", 
                 style="dim",
                 padding=(1, 2)
             ))
 
-        # 2. Show the final response
         clean_response = final_response.replace("[HacxGPT]:", "").replace("[CODE]:", "").strip()
         md = Markdown(clean_response, code_theme=Config.CODE_THEME)
         self.console.print(md)
-        self.console.print(Rule(style="dim cyan"))
+        self.console.print(Rule(style="dim bright_blue"))
         
         return full_response
 

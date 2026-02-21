@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="hacxgpt",
-    version="2.0.0",
+    version="2.1.0",
     description="Advanced Uncensored AI Terminal Interface",
     author="BlackTechX",
     packages=find_packages(),
@@ -11,13 +11,13 @@ setup(
         "hacxgpt": ["providers.json", "prompts/*.md"],
     },
     install_requires=[
-        "openai",
         "rich",
         "python-dotenv",
         "pwinput",
         "pyperclip",
         "colorama",
-        "prompt_toolkit"
+        "prompt_toolkit",
+        "requests"
     ],
     entry_points={
         "console_scripts": [

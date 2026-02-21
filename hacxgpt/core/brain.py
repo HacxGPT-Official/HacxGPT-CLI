@@ -1,9 +1,8 @@
-
 import sys
-import openai
 from typing import Generator
 from ..config import Config
 from ..ui.interface import UI 
+from .api import Client
 
 
 class HacxBrain:
@@ -23,14 +22,19 @@ class HacxBrain:
 
     def _init_client(self):
         config = Config.get_provider_config()
-        
         base_url = config.get("base_url")
-        api_key = self.api_key
-
-        self.client = openai.OpenAI(
-            api_key=api_key,
+        
+        # Initialize the local API client with browser-like headers for compatibility
+        self.client = Client(
+            api_key=self.api_key,
             base_url=base_url,
+            timeout=60,
             default_headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept-Encoding": "gzip, deflate",
+                "Connection": "keep-alive",
                 "HTTP-Referer": "https://github.com/BlackTechX011",
                 "X-Title": "HacxGPT-CLI"
             }
@@ -63,26 +67,27 @@ class HacxBrain:
     def chat(self, user_input: str) -> Generator[str, None, None]:
         self.history.append({"role": "user", "content": user_input})
         
-        # Use standard timeout since internal I2P is gone
-        timeout = 60
+        # Use standard timeout
         use_stream = True
         
         try:
+            # Using the local API client (it mimics OpenAI SDK)
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=self.history,
                 stream=use_stream,
-                temperature=0.75,
-                timeout=timeout
+                temperature=0.75
             )
             
             full_content = ""
             if use_stream:
                 for chunk in response:
-                    content = chunk.choices[0].delta.content
-                    if content:
-                        full_content += content
-                        yield content
+                    # chunk is ChatCompletionChunk from api.py
+                    if chunk.choices and len(chunk.choices) > 0:
+                        content = chunk.choices[0].delta.content
+                        if content:
+                            full_content += content
+                            yield content
             else:
                 # Non-streaming response handling
                 full_content = response.choices[0].message.content or ""
@@ -93,7 +98,8 @@ class HacxBrain:
             else:
                 self.history.append({"role": "assistant", "content": full_content})
             
-        except openai.AuthenticationError:
-            yield f"Error: 401 Unauthorized for {Config.ACTIVE_PROVIDER.upper()}. Check your API Key."
         except Exception as e:
-            yield f"Error: Connection Terminated. Reason: {str(e)}"
+            if "401" in str(e):
+                yield f"Error: 401 Unauthorized for {Config.ACTIVE_PROVIDER.upper()}. Check your API Key."
+            else:
+                yield f"Error: Connection Terminated. Reason: {str(e)}"

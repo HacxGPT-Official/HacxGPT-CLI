@@ -7,12 +7,12 @@ import os
 def check_dependencies():
     """Checks and auto-installs missing dependencies."""
     required_packages = [
-        ("openai", "openai"),
         ("colorama", "colorama"),
         ("pwinput", "pwinput"),
         ("dotenv", "python-dotenv"),
         ("rich", "rich"),
-        ("pyperclip", "pyperclip")
+        ("pyperclip", "pyperclip"),
+        ("requests", "requests")
     ]
     
     missing_pip_names = []

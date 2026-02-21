@@ -18,6 +18,7 @@
   <br>
   <img src="https://img.shields.io/github/last-commit/HacxGPT-Official/HacxGPT-CLI?color=green&logo=github" alt="Last Commit">
   <img src="https://img.shields.io/github/license/HacxGPT-Official/HacxGPT-CLI?color=red" alt="License">
+  <img src="https://img.shields.io/badge/version-2.1.0-blue.svg" alt="Version 2.1.0">
 </p>
 
 <h4>
@@ -30,6 +31,16 @@
   <a href="mailto:contact@hacxgpt.com">Contact</a>
 </h4>
 </div>
+
+---
+
+## 🚀 NEW IN V2.1.0
+
+- **LiteLLM Integration:** Now powered by `litellm` for superior model compatibility and OpenAI-compatible mode across all providers.
+- **Enhanced Aesthetics:** Modernized UI with refined colors, improved main menu, and a cleaner streaming experience.
+- **Reasoning Support:** Optimized rendering for `<think>` tags (CoT) with a dedicated reasoning panel.
+- **Auto-Update System:** Built-in update engine! Use `/update` in chat or run the new update scripts.
+- **Latest Dependencies:** All libraries updated to their latest versions for maximum performance and security.
 
 ---
 
@@ -239,6 +250,20 @@ If you prefer to install manually, follow these steps:
    ```
 
 </details>
+
+### 🔄 Updating HacxGPT
+
+Keep your system synchronized with the latest features and patches.
+
+#### **Option A: In-Chat (Easiest)**
+Simply type `/update` while in a chat session. The tool will check for updates, pull the latest code, and restart automatically.
+
+#### **Option B: Using Scripts**
+- **Windows (PowerShell):** Run `scripts/update.ps1` 
+- **Linux/macOS:** Run `python3 scripts/update.py`
+
+#### **Option C: Main Menu**
+Select option **[4] System Update** from the main menu.
 
 ---
 

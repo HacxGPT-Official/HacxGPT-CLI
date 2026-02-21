@@ -9,6 +9,7 @@ from .config import Config
 from .ui.interface import UI
 from .core.brain import HacxBrain
 from .utils.system import check_dependencies
+from .utils.updater import Updater
 
 # Initialize Colorama
 colorama.init(autoreset=True)
@@ -20,6 +21,15 @@ class App:
         
     def setup(self) -> bool:
         Config.initialize()
+        
+        # Check for updates on setup
+        try:
+            is_update, remote_v = Updater.check_for_updates()
+            if is_update:
+                self.ui.show_msg("Update Available", f"A new version of HacxGPT ({remote_v}) is available.\nRun '/update' to install it.", "yellow")
+        except:
+            pass # Silent fail if offline
+            
         p_cfg = Config.get_provider_config()
         key_var = p_cfg.get("key_var")
         key = os.getenv(key_var)
@@ -122,6 +132,7 @@ class App:
                     continue
                 if prompt.lower() == '/help':
                     help_text = (
+                        "/update - Check and install latest updates\n"
                         "/providers - List Providers\n"
                         "/provider <name> - Switch Provider\n"
                         "/models - List Models\n"
@@ -132,6 +143,18 @@ class App:
                         "/exit - Disconnect"
                     )
                     self.ui.show_msg("Help", help_text, "magenta")
+                    continue
+                
+                if prompt.lower() == '/update':
+                    self.ui.show_msg("System Update", "Initiating update process...", "cyan")
+                    success, msg = Updater.update()
+                    if success:
+                        self.ui.show_msg("Success", f"{msg}\n[bold red]RESTARTING APP...[/]", "green")
+                        time.sleep(1)
+                        # Re-execute the script
+                        os.execv(sys.executable, [sys.executable] + sys.argv)
+                    else:
+                        self.ui.show_msg("Error", msg, "red")
                     continue
                 
                 if prompt.lower() == '/setup':
@@ -243,8 +266,8 @@ class App:
         get_char()
 
     def start(self):
-        # Optional: Check dependencies on startup
-        # check_dependencies() 
+        # Check dependencies on startup
+        check_dependencies() 
         
         if not self.setup():
             self.ui.console.print("[red]System Halted: Authorization missing.[/]")
@@ -262,6 +285,15 @@ class App:
             elif choice == '3':
                 self.about()
             elif choice == '4':
+                success, msg = Updater.update()
+                if success:
+                    self.ui.show_msg("Success", f"{msg}\n[bold red]RESTARTING APP...[/]", "green")
+                    time.sleep(1)
+                    # Re-execute the script
+                    os.execv(sys.executable, [sys.executable] + sys.argv)
+                else:
+                    self.ui.show_msg("Error", msg, "red")
+            elif choice == '5':
                 self.ui.console.print("[bold red]Terminating connection...[/]")
                 time.sleep(0.5)
                 self.ui.clear()

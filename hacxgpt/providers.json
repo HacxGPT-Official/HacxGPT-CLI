@@ -30,31 +30,24 @@
         "key_var": "HAC_OPENROUTER_KEY",
         "models": [
             {
-                "name": "xiaomi/mimo-v2-flash:free",
-                "alias": "Xiaomi MIMO v2 (Free)"
+                "name": "xiaomi/mimo-v2-flash",
+                "alias": "Xiaomi MIMO v2 (BYOK)"
             },
             {
-                "name": "mistralai/devstral-2512:free",
-                "alias": "Mistral Devstral (Free)"
+                "name": "mistralai/devstral-2512",
+                "alias": "Mistral Devstral (BYOK)"
             },
             {
-                "name": "z-ai/glm-4.5-air:free",
-                "alias": "GLM 4.5 Air (Free)"
+                "name": "z-ai/glm-4.5-air",
+                "alias": "GLM 4.5 Air (BYOK)"
             },
             {
-                "name": "moonshotai/kimi-k2:free",
-                "alias": "Moonshot Kimi K2 (Free)"
-            },
-            {
-                "name": "tngtech/deepseek-r1t2-chimera:free",
-                "alias": "DeepSeek R1T2 Chimera (Free)"
-            },
-            {
-                "name": "tngtech/deepseek-r1t-chimera:free",
-                "alias": "DeepSeek R1T Chimera (Free)"
+                "name": "moonshotai/kimi-k2",
+                "alias": "Moonshot Kimi K2 (BYOK)"
             }
+         
         ],
-        "default_model": "xiaomi/mimo-v2-flash:free"
+        "default_model": "xiaomi/mimo-v2-flash"
     }
 
 }

@@ -183,13 +183,26 @@ Follow these steps to get HacxGPT-CLI running on your system.
 
 ### 🔑 Prerequisites: API Key
 
-To use this framework, you **must** obtain an API key from at least one supported provider. All providers offer free tiers perfect for getting started.
+To use this framework, you **must** obtain an API key from at least one supported provider. Most providers offer free tiers, making it easy to get started.
 
-**Option 1: OpenRouter (Recommended for Beginners)**
+#### 🚀 Option 1: OpenRouter *(Recommended for Beginners)*
+
 1. Visit [openrouter.ai/keys](https://openrouter.ai/keys)
 2. Sign up for a free account
 3. Generate your API key
-4. Access to many powerful free models included
+4. Add it to your project configuration
+
+> [!NOTE]
+> OpenRouter does **not** provide free access to the specific models used in this repository.
+> You will need to **bring your own key (BYOK)**, and usage may incur costs depending on the models you choose.
+
+<details>
+<summary>💡 Tip</summary>
+
+If you're just experimenting, try lower-cost or free-tier models where available to reduce usage costs.
+
+</details>
+
 
 **Option 2: Groq (Great for Fast Responses)**
 1. Visit [console.groq.com/keys](https://console.groq.com/keys)

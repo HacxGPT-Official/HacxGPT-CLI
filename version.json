@@ -1,5 +1,5 @@
 {
-    "version": "2.1.2",
-    "release_notes": "Internal bug fixes and improved automated release system.",
+    "version": "2.1.3",
+    "release_notes": "Internal bug fixes.",
     "min_python_version": "3.8"
 }

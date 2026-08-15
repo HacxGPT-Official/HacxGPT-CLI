@@ -361,7 +361,7 @@ We are constantly evolving HacxGPT-CLI. Here are some of the technical milestone
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=HacxGPT-Official/HacxGPT-CLI&type=Date)](https://star-history.com/#HacxGPT-Official/HacxGPT-CLI&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=HacxGPT-Official/HacxGPT-CLI&type=Date)](https://star-history.dera.page/#HacxGPT-Official/HacxGPT-CLI&Date)
 
 ---
 
